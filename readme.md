@@ -14,26 +14,25 @@ $ npm install --save-dev gulp-asvn
 
 ```js
 var gulp = require('gulp');
-var svn = require('gulp-asvn');
+var svn  = require('gulp-asvn');
 
-gulp.task('default', function () {
-	return gulp.src('src/file.ext')
-		.pipe(gulAsvn())
-		.pipe(gulp.dest('dist'));
+var svnConf = {
+	svnDir :'./app',
+	destDir : './export',
+}
+
+gulp.task('checkout', function() {
+    	return svn.checkout (svnConf.svnDir, function(err){
+		    	if(err) throw err;
+	});
 });
 ```
 
+## Run Gulp task
 
-## API
-
-### Asvn(options)
-
-#### options
-
-##### foo
-
-Type: `boolean`  
-Default: `false`
+```
+$ gulp checkout
+```
 
 Lorem ipsum.
 
