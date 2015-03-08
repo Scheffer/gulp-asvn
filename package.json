@@ -1,6 +1,6 @@
 {
   "name": "gulp-asvn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "license": "MIT",
@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "gulp-util": "^3.0.1",
+    "require-dir": "^0.1.0",
     "through2": "^0.6.3",
     "svn-info": "^0.2.1",
     "svn-project-root": "^0.1.0",
