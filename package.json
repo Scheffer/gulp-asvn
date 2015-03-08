@@ -1,8 +1,11 @@
 {
   "name": "gulp-asvn",
-  "version": "0.1.2",
+  "version": "0.1.5",
   "description": "",
-  "main": "index.js",
+  "main": "./index.js",
+  "files": [
+    "commands/"
+  ],
   "license": "MIT",
   "repository": "Scheffer/gulp-asvn",
   "author": {
@@ -19,9 +22,7 @@
   "files": [
     "index.js"
   ],
-  "directories": {
-    "commands": "commands"
-  },
+  "directories": {},
   "keywords": [
     "gulpplugin"
   ],
@@ -31,7 +32,8 @@
     "through2": "^0.6.3",
     "svn-info": "^0.2.1",
     "svn-project-root": "^0.1.0",
-    "prompt": "*",
+    "synchro-prompt": "^1.0.2",
+    "del": "^1.1.1",
     "event-stream": "~3.0.20"
   },
   "devDependencies": {  
@@ -39,7 +41,6 @@
     "event-stream": "~3.0.20",
     "gulp-util": "^3.0.1",
     "mocha": "*",
-    "simple-prompt": "^0.2.1",
     "svn-info": "^0.2.1",
     "svn-project-root": "^0.1.0",
     "synchro-prompt": "^1.0.2",
