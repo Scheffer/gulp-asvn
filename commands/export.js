@@ -2,15 +2,20 @@
 
 var exec = require('child_process').exec,
     path = require('path'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    del = require('del');
 
 module.exports = function (svnDir, exportDir, cb) {
 
 
-    //console.log(path.resolve(svnDir));
+        //console.log(path.normalize(exportDir));
 
-        //var dirSvn = path.normalize(svnDir);
-        //var dir = path.normalize(exportDir);
+        del([
+            exportDir + '/**',
+            exportDir
+        ]);
+
+    
         var cmd = 'svn export -r COMMITTED '+ svnDir +' '+ exportDir;
 
 
@@ -21,5 +26,7 @@ module.exports = function (svnDir, exportDir, cb) {
            
             cb(err, stdout);
         });
+
+ 
     
 };
