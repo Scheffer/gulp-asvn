@@ -7,9 +7,6 @@ var exec = require('child_process').exec,
 
 module.exports = function (svnDir, exportDir, cb) {
 
-
-        //console.log(path.normalize(exportDir));
-
         del([
             exportDir + '/**',
             exportDir

@@ -1,7 +1,7 @@
 'use strict';
 
 var exec = require('child_process').exec,
-    prompt = require('synchro-prompt'),
+    readlineSync = require('readline-sync'),
     gutil = require('gulp-util');
 
 module.exports = function (svnDir, options, cb) {
@@ -11,13 +11,7 @@ module.exports = function (svnDir, options, cb) {
         options = {};
     }
 
-
-     var ops = {
-            color: 'green',
-            format: false,
-            validate: function(input) { return input; }
-    }
-    var message = prompt('Commit message: ', ops);
+    var message = readlineSync.question('? Your Scommit message'.cyan + ': ');
 
     if(!cb || typeof cb !== 'function') cb = function() {};
     if(!options) options = {};
