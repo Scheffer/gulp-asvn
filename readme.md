@@ -1,8 +1,9 @@
 # gulp-asvn 
 
+> Gulp plugin to work with svn
+
 [![NPM](https://nodei.co/npm/gulp-asvn.png?compact=true)](https://nodei.co/npm/gulp-asvn/)
 
-> Gulp plugin to work with svn
 
 
 ## Install
@@ -41,6 +42,13 @@ gulp.task('export', function() {
 	});
 });
 
+gulp.task('commit', function() {
+     	return svn.commit (svnConf.svnDir, function(err){
+		    	if(err) throw err;
+	});
+});
+
+
 
 ```
 
@@ -56,6 +64,10 @@ $ gulp add
 
 ```
 $ gulp export
+```
+
+```
+$ gulp commit
 ```
 
 
