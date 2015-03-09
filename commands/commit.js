@@ -1,14 +1,23 @@
 'use strict';
 
 var exec = require('child_process').exec,
+    prompt = require('synchro-prompt'),
     gutil = require('gulp-util');
 
-module.exports = function (message, options, cb) {
+module.exports = function (svnDir, options, cb) {
 
     if(!cb && typeof options === 'function') {
         cb = options;
         options = {};
     }
+
+
+     var ops = {
+            color: 'green',
+            format: false,
+            validate: function(input) { return input; }
+    }
+    var message = prompt('Commit message: ', ops);
 
     if(!cb || typeof cb !== 'function') cb = function() {};
     if(!options) options = {};
@@ -22,7 +31,7 @@ module.exports = function (message, options, cb) {
         cmd += ' --username '+ options.username + ' --password ' + options.password;
     }
 
-    return exec(cmd, {cwd: options.cwd}, function(err, stdout, stderr){
+    return exec(cmd, {cwd: svnDir}, function(err, stdout, stderr){
         if (err) return cb(err);
         if (!options.quiet) gutil.log(stdout, stderr);
         cb();
