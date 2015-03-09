@@ -1,6 +1,8 @@
 # gulp-asvn 
 
-> My gnarly gulp plugin
+[![NPM](https://nodei.co/npm/gulp-asvn.png?compact=true)](https://nodei.co/npm/gulp-asvn/)
+
+> Gulp plugin to work with svn
 
 
 ## Install
@@ -26,15 +28,35 @@ gulp.task('checkout', function() {
 		    	if(err) throw err;
 	});
 });
+
+gulp.task('add', function() {
+     	return svn.add (svnConf.svnDir, function(err){
+		    	if(err) throw err;
+	});
+});
+
+gulp.task('export', function() {
+     	return svn.export(svnConf.svnDir, svnConf.destDir, function(err){
+		    	if(err) throw err;
+	});
+});
+
+
 ```
 
-## Run Gulp task
+## Run Gulp Tasks
 
 ```
 $ gulp checkout
 ```
 
-Lorem ipsum.
+```
+$ gulp add
+```
+
+```
+$ gulp export
+```
 
 
 ## License
