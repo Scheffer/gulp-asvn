@@ -11,7 +11,7 @@ module.exports = function (svnDir, options, cb) {
         options = {};
     }
 
-    var message = readlineSync.question('? Your Scommit message'.cyan + ': ');
+    var message = readlineSync.question('? Your commit message'.cyan + ': ');
 
     if(!cb || typeof cb !== 'function') cb = function() {};
     if(!options) options = {};
