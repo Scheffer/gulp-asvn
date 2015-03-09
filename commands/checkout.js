@@ -1,25 +1,24 @@
 'use strict';
 
 var exec = require('child_process').exec,
-    prompt = require('synchro-prompt'),
     gutil = require('gulp-util');
+    var readlineSync = require('readline-sync');
 
 module.exports = function (path, cb)
 {
-
 
         var ops = {
             color: 'green',
             format: false,
             validate: function(input) { return input; }
         }
-        var answer = prompt(['SVN Repo URL: ', 'SVN Username: ', 'SVN Password: '], ops);
+        var repo = readlineSync.question('? Your SVN Repo URL'.cyan + ': ');
+        var user = readlineSync.question('? Your SVN User'.cyan + ': ');
+        var password = readlineSync.question('? Your SVN Password'.cyan + ': ', {noEchoBack: true});
 
-        //console.log(answer);
-       
-        var svnRepo = answer[0];
-        var svnUser = answer[1];
-        var svnPass = answer[2];
+        var svnRepo = repo;
+        var svnUser = user;
+        var svnPass = password;
         var cmd = 'svn checkout ' + svnRepo + ' ' + path;
         cmd += ' --username '+ svnUser + ' --password ' + svnPass;
         

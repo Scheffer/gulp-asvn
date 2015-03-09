@@ -1,6 +1,6 @@
 {
   "name": "gulp-asvn",
-  "version": "0.1.91",
+  "version": "0.1.92",
   "description": "",
   "main": "./index.js",
   "files": [
@@ -34,7 +34,7 @@
     "through2": "^0.6.3",
     "svn-info": "^0.2.1",
     "svn-project-root": "^0.1.0",
-    "synchro-prompt": "^1.0.2",
+    "readline-sync": "^0.7.5",
     "del": "^1.1.1",
     "event-stream": "~3.0.20"
   },
