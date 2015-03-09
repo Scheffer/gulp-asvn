@@ -3,7 +3,7 @@
 var exec = require('child_process').exec,
     gutil = require('gulp-util');
 
-module.exports = function (file, options, cb) {
+module.exports = function (repoDir, options, cb) {
 
     if(!cb && typeof options === 'function') {
         cb = options;
@@ -12,17 +12,16 @@ module.exports = function (file, options, cb) {
 
     if(!cb || typeof cb !== 'function') cb = function() {};
     if(!options) options = {};
-    if(!file) throw new Error('gulp-svn: File is required svn.add("file.js")');
     if(!options.cwd) options.cwd = process.cwd();
     if(!options.args) options.args = ' ';
 
-    var cmd = 'svn add ' + file + ' ' + options.args;
+    var cmd = "svn st | grep ? | tr -s ' ' | cut -d ' ' -f 2 | xargs svn add";
 
     if(options.username && options.password) {
         cmd += ' --username '+ options.username + ' --password ' + options.password;
     }
 
-    return exec(cmd, {cwd: options.cwd}, function(err, stdout, stderr){
+    return exec(cmd, {cwd: repoDir}, function(err, stdout, stderr){
         if (err) return cb(err);
         if (!options.quiet) gutil.log(stdout, stderr);
         cb();
