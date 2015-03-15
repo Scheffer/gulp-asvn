@@ -29,26 +29,45 @@ module.exports = function (destDir, cb)
 
             var configSvn = '{ "repo" : "' + repo + '", "user" : "' + user + '", "password" : "' + password + '" }';
            
-            var holas = fs.writeFile(dir, configSvn, function(err) {
+            var svnConfigFile = fs.writeFile(dir, configSvn, function(err) {
                 if(err) throw err;
 
-            });           
+            });
 
             if (fs.existsSync(gitfile)) {
-                var svntext = "\n.svn\nsvnconf.json";
-                fs.readFile(gitfile, 'utf8', function (err, data) {
-                    if (err) throw err;
-                   
-                    fs.writeFile (gitfile, data + svntext, function(err) {
-                        if (err) throw err;
-                    });
-                });
+                
+                var array = [];
+                
+                fs.readFile(gitfile, 'utf8', function(err, data) {
+                    if(err) throw err;
 
+                    var svntext = data;
+                    array = data.toString().split("\n");
+
+                    if (array.indexOf(".svn") == -1) {
+
+                        var svnign = "\n.svn";
+                        svntext = svntext + svnign;
+
+                    };
+
+                    if (array.indexOf("svnconf.json") == -1) {
+
+                        var svnconfign = "\nsvnconf.json";
+                        svntext = svntext + svnconfign;
+
+                    };
+                        
+                    fs.writeFile (gitfile, svntext, function(err) {
+                        if (err) throw err;
+                    });                     
+                        
+                });
+            
             } else {
 
                 fs.writeFile(gitfile, ".svn\nsvnconf.json", function(err) {
                     if(err) throw err;
-
                 });
 
             }
@@ -57,19 +76,20 @@ module.exports = function (destDir, cb)
             var svnUser = user;
             var svnPass = password;
 
+
         }
 
         var cmd = 'svn checkout ' + svnRepo + ' ' + destDir;
         cmd += ' --username '+ svnUser + ' --password ' + svnPass;
         
-        return exec(cmd, function(err, stdout, stderr){
-            
+        return exec(cmd, function(err, stdout, stderr){           
             if (err) return cb(err);
             gutil.log(stdout, stderr);
             cb();
         });
+
     }   
-  
+    
     return svnFile(cb);
 
 };
