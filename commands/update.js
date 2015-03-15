@@ -1,29 +1,41 @@
 'use strict';
 
 var exec = require('child_process').exec,
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    fs = require('fs'),
+    path = require('path'),
+    readlineSync = require('readline-sync');
 
-module.exports = function (path, options, cb) {
+module.exports = function (repoDir,  cb) {
 
-    if(!cb && typeof options === 'function') {
-        cb = options;
-        options = {};
-    }
-
+   var dir = path.join(process.cwd(), 'svnconf.json');
+    
     if(!cb || typeof cb !== 'function') cb = function() {};
-    if(!options) options = {};
-    if(!path) path = ' ';
-    if(!options.cwd) options.cwd = process.cwd();
-    if(!options.args) options.args = ' ';
-    var cmd = 'svn update ' + path + ' ' + options.args;
+ 
+    if (fs.existsSync(dir)) {
 
-    if(options.username && options.password) {
-        cmd += ' --username '+ options.username + ' --password ' + options.password;
+        var svnConf = require(dir);
+        var svnUser = svnConf.user;
+        var svnPass = svnConf.password;
+        
+    } else {
+
+        var user = readlineSync.question('? Your SVN User'.cyan + ': ');
+        var password = readlineSync.question('? Your SVN Password'.cyan + ': ');
+
+        var svnUser = user;
+        var svnPass = password;
     }
 
-    return exec(cmd, {cwd: options.cwd}, function(err, stdout, stderr){
+    var cmd = 'svn update ' + repoDir;
+
+    if(svnUser && svnPass) {
+        cmd += ' --username '+ svnUser+ ' --password ' + svnPass;
+    }
+
+    return exec(cmd, {cwd: repoDir}, function(err, stdout, stderr){
         if (err) return cb(err);
-        if (!options.quiet) gutil.log(stdout, stderr);
+        gutil.log(stdout, stderr);
         cb();
     });
 };

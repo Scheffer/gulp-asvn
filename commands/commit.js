@@ -1,33 +1,43 @@
 'use strict';
 
 var exec = require('child_process').exec,
-    readlineSync = require('readline-sync'),
-    gutil = require('gulp-util');
+    gutil = require('gulp-util'),
+    fs = require('fs'),
+    path = require('path'),
+    readlineSync = require('readline-sync');
 
-module.exports = function (svnDir, options, cb) {
+module.exports = function (svnDir, cb) {
 
-    if(!cb && typeof options === 'function') {
-        cb = options;
-        options = {};
+    var dir = path.join(process.cwd(), 'svnconf.json');
+    
+    if(!cb || typeof cb !== 'function') cb = function() {};
+ 
+    if (fs.existsSync(dir)) {
+
+        var svnConf = require(dir);
+        var svnUser = svnConf.user;
+        var svnPass = svnConf.password;
+        
+    } else {
+
+        var user = readlineSync.question('? Your SVN User'.cyan + ': ');
+        var password = readlineSync.question('? Your SVN Password'.cyan + ': ');
+
+        var svnUser = user;
+        var svnPass = password;
     }
 
     var message = readlineSync.question('? Your commit message'.cyan + ': ');
 
-    if(!cb || typeof cb !== 'function') cb = function() {};
-    if(!options) options = {};
-    if(!message) throw new Error('gulp-svn: Message is required svn.commit("Initial commit")');
-    if(!options.cwd) options.cwd = process.cwd();
-    if(!options.args) options.args = ' ';
+    var cmd = 'svn commit -m "' + message + '" ';
 
-    var cmd = 'svn commit -m "' + message + '" ' + options.args;
-
-    if(options.username && options.password) {
-        cmd += ' --username '+ options.username + ' --password ' + options.password;
+    if(svnUser && svnPass) {
+        cmd += ' --username '+ svnUser + ' --password ' + svnPass;
     }
 
     return exec(cmd, {cwd: svnDir}, function(err, stdout, stderr){
         if (err) return cb(err);
-        if (!options.quiet) gutil.log(stdout, stderr);
+        gutil.log(stdout, stderr);
         cb();
     });
 };
