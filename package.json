@@ -1,6 +1,6 @@
 {
   "name": "gulp-asvn",
-  "version": "0.1.98",
+  "version": "0.1.99",
   "description": "",
   "main": "./index.js",
   "files": [
@@ -38,7 +38,7 @@
     "del": "^1.1.1",
     "event-stream": "~3.0.20"
   },
-  "devDependencies": {  
+  "devDependencies": {
     "del": "^1.1.1",
     "event-stream": "~3.0.20",
     "gulp-util": "^3.0.1",
