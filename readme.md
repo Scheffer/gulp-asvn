@@ -4,11 +4,12 @@
 
 [![NPM](https://nodei.co/npm/gulp-asvn.png?downloads=true)](https://www.npmjs.com/package/gulp-asvn/)
 
-###Preinstall
 
-This isn't a full **SVN** solution, it's only a interface to work on [gulp.js](http://gulpjs.com/) whit **SVN**. If you have not installed a client svn, you need install one.
+This isn't a full **SVN** solution, it's only a interface to work on [gulp.js](http://gulpjs.com/) with **SVN**. If you have not installed a client svn, you need install one.
 
-[Here](https://subversion.apache.org/packages.html) find the respective client for your OS with install instructions: [Apache Subversion Binary Packages.](https://subversion.apache.org/packages.html)
+Find [Here](https://subversion.apache.org/packages.html) the respective client for your OS with install instructions: 
+
+**[Apache Subversion Binary Packages.](https://subversion.apache.org/packages.html)**
 
 
 ## Install

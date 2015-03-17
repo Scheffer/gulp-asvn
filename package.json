@@ -1,6 +1,6 @@
 {
   "name": "gulp-asvn",
-  "version": "0.1.99",
+  "version": "1.0.1",
   "description": "",
   "main": "./index.js",
   "files": [
